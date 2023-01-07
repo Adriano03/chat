@@ -1,5 +1,7 @@
-import 'package:chat/pages/auth_page.dart';
+import 'package:chat/core/services/notification/chat_notification_service.dart';
+import 'package:chat/pages/auth_or_app_page.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,13 +12,23 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Chat',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => ChatNotificationService(),
+        )
+      ],
+      child: MaterialApp(
+        title: 'Flutter Chat',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSwatch().copyWith(
+            primary: Colors.cyan,
+            secondary: Colors.deepPurple,
+          ),
+        ),
+        home: const AuthOrAppPage(),
+        debugShowCheckedModeBanner: false,
       ),
-      home: const AuthPage(),
-      debugShowCheckedModeBanner: false,
     );
   }
 }
