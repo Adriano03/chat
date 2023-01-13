@@ -4,29 +4,37 @@ import 'package:chat/pages/auth_page.dart';
 import 'package:chat/pages/chat_page.dart';
 import 'package:chat/pages/loading_page.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-class AuthOrAppPage extends StatefulWidget {
+class AuthOrAppPage extends StatelessWidget {
   const AuthOrAppPage({super.key});
 
-  @override
-  State<AuthOrAppPage> createState() => _AuthOrAppPageState();
-}
+  // Somente quando essa função finalizar vai chamar o metódo build;
+  Future<void> init(BuildContext context) async {
+    await Firebase.initializeApp();
+  }
 
-class _AuthOrAppPageState extends State<AuthOrAppPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: StreamBuilder<ChatUser?>(
-        stream: AuthService().userChanges,
-        builder: (ctx, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const LoadingPage();
-          } else {
-            // Se Snapshot<ChatUser?> contém dados vai para ChatPage != AuthPage;
-            return snapshot.hasData ? const ChatPage() : const AuthPage();
-          }
-        },
-      ),
+    return FutureBuilder(
+      future: init(context),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const LoadingPage();
+        } else {
+          return StreamBuilder<ChatUser?>(
+            stream: AuthService().userChanges,
+            builder: (ctx, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const LoadingPage();
+              } else {
+                // Se Snapshot<ChatUser?> contém dados vai para ChatPage != AuthPage;
+                return snapshot.hasData ? const ChatPage() : const AuthPage();
+              }
+            },
+          );
+        }
+      },
     );
   }
 }

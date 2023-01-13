@@ -75,7 +75,7 @@ class MessageBubble extends StatelessWidget {
                   const Divider(color: Colors.black38),
                   Text(
                     message.text,
-                    textAlign: belongsToCurrentUser ? TextAlign.center : null,
+                    textAlign: TextAlign.justify,
                   ),
                 ],
               ),

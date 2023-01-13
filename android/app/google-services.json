@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "333105305651",
+    "project_id": "chat-fdecf",
+    "storage_bucket": "chat-fdecf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:333105305651:android:b8edf0f405b34ee295ab46",
+        "android_client_info": {
+          "package_name": "br.com.adriano.chat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "333105305651-nlnhbem8r6tj13pas32r8kgk767m23ds.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC08Xl4OBciwqtwEruJ1wFH6huyI47bHg4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "333105305651-nlnhbem8r6tj13pas32r8kgk767m23ds.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

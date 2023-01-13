@@ -34,7 +34,7 @@ class _NewMessagesState extends State<NewMessages> {
             controller: _messageController,
             textCapitalization: TextCapitalization.sentences,
             textInputAction: TextInputAction.send,
-            decoration: const InputDecoration(labelText: 'Enviar mensagem...'),
+            decoration: const InputDecoration(labelText: '  Enviar mensagem...'),
             onChanged: (msg) => setState(() => _message = msg),
             onSubmitted: (_) {
               if (_message.trim().isNotEmpty) {

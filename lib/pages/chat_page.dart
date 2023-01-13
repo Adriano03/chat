@@ -1,5 +1,8 @@
+import 'dart:math';
+
 import 'package:chat/components/messages.dart';
 import 'package:chat/components/new_messages.dart';
+import 'package:chat/core/models/chat_notification.dart';
 import 'package:chat/core/services/auth/auth_service.dart';
 import 'package:chat/core/services/notification/chat_notification_service.dart';
 import 'package:chat/pages/notification_page.dart';
@@ -46,7 +49,9 @@ class _ChatPageState extends State<ChatPage> {
                     radius: 10,
                     backgroundColor: Colors.red.shade800,
                     child: Text(
-                      notificationCounter.toString(),
+                      notificationCounter <= 9
+                          ? notificationCounter.toString()
+                          : '+9',
                       style: const TextStyle(fontSize: 12),
                     ),
                   ),
