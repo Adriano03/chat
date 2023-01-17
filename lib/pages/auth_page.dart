@@ -1,9 +1,10 @@
 // ignore_for_file: control_flow_in_finally
 
+import 'package:flutter/material.dart';
+
 import 'package:chat/components/auth_form.dart';
 import 'package:chat/core/models/auth_form_data.dart';
 import 'package:chat/core/services/auth/auth_service.dart';
-import 'package:flutter/material.dart';
 
 class AuthPage extends StatefulWidget {
   const AuthPage({super.key});
@@ -14,6 +15,30 @@ class AuthPage extends StatefulWidget {
 
 class _AuthPageState extends State<AuthPage> {
   bool _isLoading = false;
+
+  void _showErrorDialog(String msg) {
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Text(
+          'Ocorreu um erro!',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.error,
+          ),
+        ),
+        content: Text(msg, textAlign: TextAlign.center),
+        actions: [
+          Center(
+            child: TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('Fechar'),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 
   void _handleSubmit(AuthFormData formData) async {
     try {
@@ -32,8 +57,8 @@ class _AuthPageState extends State<AuthPage> {
           formData.image,
         );
       }
-    } catch (e) {
-      // tratar erro
+    } catch (error) {
+      _showErrorDialog('Dados do Usuário Inválidos!');
     } finally {
       if (!mounted) return;
       setState(() => _isLoading = false);

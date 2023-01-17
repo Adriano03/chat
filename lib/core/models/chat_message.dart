@@ -5,7 +5,7 @@ class ChatMessage {
   final DateTime createdAt;
   // Dados usuário;
   final String userId;
-  final String username;
+  final String userName;
   final String userImageUrl;
 
   const ChatMessage({
@@ -13,7 +13,7 @@ class ChatMessage {
     required this.text,
     required this.createdAt,
     required this.userId,
-    required this.username,
+    required this.userName,
     required this.userImageUrl,
   });
 }

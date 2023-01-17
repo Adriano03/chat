@@ -10,6 +10,7 @@ class NewMessages extends StatefulWidget {
 }
 
 class _NewMessagesState extends State<NewMessages> {
+  bool _isLoading = false;
   String _message = '';
   final _messageController = TextEditingController();
 
@@ -17,10 +18,12 @@ class _NewMessagesState extends State<NewMessages> {
     final user = AuthService().currentUser;
 
     if (user != null) {
-      await ChatService().save(_message, user);
+      setState(() => _isLoading = true);
       _messageController.clear();
+      await ChatService().save(_message, user);
       setState(() {
         _message = '';
+        _isLoading = false;
       });
     }
   }
@@ -34,7 +37,8 @@ class _NewMessagesState extends State<NewMessages> {
             controller: _messageController,
             textCapitalization: TextCapitalization.sentences,
             textInputAction: TextInputAction.send,
-            decoration: const InputDecoration(labelText: '  Enviar mensagem...'),
+            decoration:
+                const InputDecoration(labelText: '  Enviar mensagem...'),
             onChanged: (msg) => setState(() => _message = msg),
             onSubmitted: (_) {
               if (_message.trim().isNotEmpty) {
@@ -43,10 +47,19 @@ class _NewMessagesState extends State<NewMessages> {
             },
           ),
         ),
-        IconButton(
-          icon: const Icon(Icons.send),
-          onPressed: _message.trim().isEmpty ? null : _sendMessage,
-        ),
+        _isLoading
+            ? const Padding(
+                padding: EdgeInsets.only(right: 10),
+                child: SizedBox(
+                  width: 27,
+                  height: 27,
+                  child: CircularProgressIndicator(),
+                ),
+              )
+            : IconButton(
+                icon: const Icon(Icons.send),
+                onPressed: _message.trim().isEmpty ? null : _sendMessage,
+              ),
       ],
     );
   }

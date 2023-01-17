@@ -67,7 +67,7 @@ class MessageBubble extends StatelessWidget {
                     : CrossAxisAlignment.start,
                 children: [
                   Text(
-                    message.username,
+                    message.userName,
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                     ),
