@@ -1,5 +1,6 @@
 // ignore_for_file: control_flow_in_finally
 
+import 'package:chat/exceptions/auth_exceptions.dart';
 import 'package:flutter/material.dart';
 
 import 'package:chat/components/auth_form.dart';
@@ -15,6 +16,7 @@ class AuthPage extends StatefulWidget {
 
 class _AuthPageState extends State<AuthPage> {
   bool _isLoading = false;
+  final _authException = AuthException();
 
   void _showErrorDialog(String msg) {
     showDialog(
@@ -58,7 +60,26 @@ class _AuthPageState extends State<AuthPage> {
         );
       }
     } catch (error) {
-      _showErrorDialog('Dados do Usuário Inválidos!');
+      if (error.toString() == _authException.emailExists) {
+        _showErrorDialog('E-mail já cadastrado!');
+      } else if (error.toString() == _authException.emailNotFound) {
+        _showErrorDialog('E-mail não encontrado!');
+      } else if (error.toString() == _authException.invalidPassword) {
+        _showErrorDialog('Senha informada incorreta!');
+      } else if (error.toString() == _authException.blockedAccess) {
+        _showErrorDialog(
+            'Acesso bloqueado temporariamente. Tente novamente mais tarde!');
+      } else if (error.toString() == _authException.disableAccount) {
+        _showErrorDialog(
+            'A conta do usuário foi desativada por um administrador!');
+      } else if (error.toString() == _authException.unformattedEmail) {
+        _showErrorDialog('O endereço de e-mail está com formato incorreto!');
+      } else if (error.toString() == _authException.networkFailed) {
+        _showErrorDialog(
+            'Ocorreu um erro na rede. Verifique se sua internet está ativa!');
+      } else {
+        _showErrorDialog('Ocorreu um erro no processo de autenticação');
+      }
     } finally {
       if (!mounted) return;
       setState(() => _isLoading = false);

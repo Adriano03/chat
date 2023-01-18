@@ -11,3 +11,4 @@ Aplicativo desenvolvido para utilizar a função de chat com dados mocados e tam
 - Salvar mensagens de cada usuário na coleção chat;
 - Implementação de notificações utilizando o pacote firebase_messaging;
 - Configurar notificações para aparecer tanto com o aplicativo, aberto, em espera e fechado;
+- Tratamento de erros para Signup e Sigin;
