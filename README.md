@@ -12,3 +12,5 @@ Aplicativo desenvolvido para utilizar a função de chat com dados mocados e tam
 - Implementação de notificações utilizando o pacote firebase_messaging;
 - Configurar notificações para aparecer tanto com o aplicativo, aberto, em espera e fechado;
 - Tratamento de erros para Signup e Sigin;
+- Implementação de vídeo chamada utilizando a API Zego Cloud;
+- Sala para duas pessoas, que podem compartilhar do mesmo número(id) da sala;

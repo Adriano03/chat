@@ -1,9 +1,9 @@
-
 import 'package:chat/components/messages.dart';
 import 'package:chat/components/new_messages.dart';
 import 'package:chat/core/services/auth/auth_service.dart';
 import 'package:chat/core/services/notification/chat_notification_service.dart';
 import 'package:chat/pages/notification_page.dart';
+import 'package:chat/components/show_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -19,40 +19,58 @@ class _ChatPageState extends State<ChatPage> {
   Widget build(BuildContext context) {
     final notificationCounter =
         Provider.of<ChatNotificationService>(context).itemsCount;
+
+    buildBottonSheet(BuildContext context) {
+      showModalBottomSheet(
+        context: context,
+        builder: (context) => const ShowModal(),
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Chat'),
         centerTitle: true,
+        leading: IconButton(
+          icon: const Icon(Icons.video_call),
+          onPressed: () {
+            buildBottonSheet(context);
+          },
+        ),
         actions: [
           Container(
             margin: const EdgeInsets.only(top: 5),
-            child: Stack(
+            child: Column(
               children: [
-                IconButton(
-                  icon: const Icon(Icons.notifications),
-                  onPressed: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (ctx) {
-                          return const NotificationPage();
-                        },
-                      ),
-                    );
-                  },
-                ),
-                Positioned(
-                  right: MediaQuery.of(context).size.width * 0.014,
-                  top: MediaQuery.of(context).size.height * 0.007,
-                  child: CircleAvatar(
-                    radius: 10,
-                    backgroundColor: Colors.red.shade800,
-                    child: Text(
-                      notificationCounter <= 9
-                          ? notificationCounter.toString()
-                          : '+9',
-                      style: const TextStyle(fontSize: 12),
+                Stack(
+                  children: [
+                    IconButton(
+                      icon: const Icon(Icons.notifications),
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (ctx) {
+                              return const NotificationPage();
+                            },
+                          ),
+                        );
+                      },
                     ),
-                  ),
+                    Positioned(
+                      right: MediaQuery.of(context).size.width * 0.014,
+                      top: MediaQuery.of(context).size.height * 0.007,
+                      child: CircleAvatar(
+                        radius: 10,
+                        backgroundColor: Colors.red.shade800,
+                        child: Text(
+                          notificationCounter <= 9
+                              ? notificationCounter.toString()
+                              : '+9',
+                          style: const TextStyle(fontSize: 12),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
